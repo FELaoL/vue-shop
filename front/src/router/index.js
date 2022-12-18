@@ -8,6 +8,14 @@ const Home = () =>
 	import(
 		/* webpackChunkName: "login_home_welcome" */ "./../views/Home.vue"
 	);
+const Welcome = () =>
+	import(
+		/* webpackChunkName: "login_home_welcome" */ "./../views/Welcome.vue"
+	);
+const Users = () =>
+	import(
+		/* webpackChunkName: "users_rights_roles" */ "./../views/user"
+	);
 Vue.use(VueRouter);
 
 const routes = [
@@ -21,7 +29,18 @@ const routes = [
 	},
 	{
 		path: "/home",
-		component: Home
+		component: Home,
+		redirect: "/welcome",
+		children: [
+			{
+				path: "/welcome",
+				component: Welcome
+			},
+			{
+				path: "/users",
+				component: Users
+			}
+		]
 	}
 ];
 
