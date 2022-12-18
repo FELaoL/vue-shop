@@ -96,10 +96,11 @@ export default {
 					"login",
 					this.loginForm
 				);
-				if (res.meta.status !== 200)
+				if (res.meta.status !== 200) {
 					return this.$message.error(
 						res.meta.msg || "登录失败！"
 					);
+				}
 				this.$message.success(res.meta.msg || "登录成功");
 				// 1.将登录成功过之后的token，把偶才能到客户端的sessionStorage中
 				// 1.1 项目中出了登录之外的其他API接口，必须在登录之后才能访问
