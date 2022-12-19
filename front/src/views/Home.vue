@@ -12,26 +12,11 @@
 		<el-container>
 			<!-- 侧边栏 -->
 			<el-aside :width="isCollapse ? '64px' : '200px'">
-				<div class="toggle-button" @click="toggleCollapse">
-					|||
-				</div>
+				<div class="toggle-button" @click="toggleCollapse">|||</div>
 				<!-- 侧边栏菜单区域 -->
-				<el-menu
-					background-color="#333744"
-					text-color="#fff"
-					unique-opened
-					router
-					:collapse="isCollapse"
-					:collapse-transition="false"
-					active-text-color="#409EFF"
-					:default-active="activePath"
-				>
+				<el-menu background-color="#333744" text-color="#fff" unique-opened router :collapse="isCollapse" :collapse-transition="false" active-text-color="#409EFF" :default-active="activePath">
 					<!-- 一级菜单 -->
-					<el-submenu
-						:index="item.id + ''"
-						v-for="item in menuList"
-						:key="item.id"
-					>
+					<el-submenu :index="item.id + ''" v-for="item in menuList" :key="item.id">
 						<!-- 一级菜单的模板区域 -->
 						<template slot="title">
 							<!-- 图标 -->
@@ -40,12 +25,7 @@
 							<span>{{ item.authName }}</span>
 						</template>
 						<!-- 二级菜单 -->
-						<el-menu-item
-							:index="'/' + subItem.path"
-							v-for="subItem in item.children"
-							:key="subItem.id"
-							@click="saveNavState('/' + subItem.path)"
-						>
+						<el-menu-item :index="'/' + subItem.path" v-for="subItem in item.children" :key="subItem.id" @click="saveNavState('/' + subItem.path)">
 							<template slot="title">
 								<!-- 图标 -->
 								<i class="el-icon-menu"></i>
@@ -96,8 +76,7 @@ export default {
 		// 获取所有的菜单
 		async getMenuList() {
 			const { data: res } = await this.$http.get("menus");
-			if (res.meta.status !== 200)
-				return this.$message.error(res.meta.msg);
+			if (res.meta.status !== 200) return this.$message.error(res.meta.msg);
 			this.menuList = res.data;
 			this.$message.success(res.meta.msg);
 		},

@@ -6,36 +6,19 @@
 				<img src="./../assets/logo.png" alt="" />
 			</div>
 			<!-- 登录表单区域 -->
-			<el-form
-				class="login_form"
-				:model="loginForm"
-				:rules="loginFormRules"
-				ref="loginFormRef"
-				label-width="0px"
-			>
+			<el-form class="login_form" :model="loginForm" :rules="loginFormRules" ref="loginFormRef" label-width="0px">
 				<!-- 用户名 -->
 				<el-form-item prop="username">
-					<el-input
-						prefix-icon="iconfont icon-user"
-						v-model="loginForm.username"
-					></el-input>
+					<el-input prefix-icon="iconfont icon-user" v-model="loginForm.username"></el-input>
 				</el-form-item>
 				<!-- 密码 -->
 				<el-form-item prop="password">
-					<el-input
-						prefix-icon="iconfont icon-3702mima"
-						v-model="loginForm.password"
-						type="password"
-					></el-input>
+					<el-input prefix-icon="iconfont icon-3702mima" v-model="loginForm.password" type="password"></el-input>
 				</el-form-item>
 				<!-- 按钮区域 -->
 				<el-form-item class="btns">
-					<el-button type="primary" @click="login"
-						>登录</el-button
-					>
-					<el-button type="info" @click="resetLoginForm"
-						>重置</el-button
-					>
+					<el-button type="primary" @click="login">登录</el-button>
+					<el-button type="info" @click="resetLoginForm">重置</el-button>
 				</el-form-item>
 			</el-form>
 		</div>
@@ -92,12 +75,8 @@ export default {
 		login() {
 			this.$refs.loginFormRef.validate(async valid => {
 				if (!valid) return;
-				const { data: res } = await this.$http.post(
-					"login",
-					this.loginForm
-				);
-				if (res.meta.status !== 200)
-					return this.$message.error(res.meta.msg);
+				const { data: res } = await this.$http.post("login", this.loginForm);
+				if (res.meta.status !== 200) return this.$message.error(res.meta.msg);
 				this.$message.success(res.meta.msg);
 				// 1.将登录成功过之后的token，保存到客户端的sessionStorage中
 				// 1.1 项目中出了登录之外的其他API接口，必须在登录之后才能访问
