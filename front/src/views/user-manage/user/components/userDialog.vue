@@ -100,6 +100,10 @@ export default {
 		};
 	},
 	methods: {
+		init(title, data) {
+			this.userDialogTitle = title;
+			this.userForm = data || {};
+		},
 		// 监听用户对话框的关闭事件
 		handleUserDialogClose() {
 			this.userForm = {};

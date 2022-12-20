@@ -110,7 +110,7 @@ export default {
 			this.userDialogVisible = true;
 			this.$nextTick(() => {
 				this.$refs.userDialogRef.userDialogVisible = true;
-				this.$refs.userDialogRef.userDialogTitle = "添加用户";
+				this.$refs.userDialogRef.init("添加用户");
 			});
 		},
 		// 展示编辑用户的对话框
@@ -121,8 +121,7 @@ export default {
 			this.userDialogVisible = true;
 			this.$nextTick(() => {
 				this.$refs.userDialogRef.userDialogVisible = true;
-				this.$refs.userDialogRef.userForm = res.data;
-				this.$refs.userDialogRef.userDialogTitle = "修改用户";
+				this.$refs.userDialogRef.init("修改用户", res.data);
 			});
 		},
 		// 根据id按钮删除对应的用户信息

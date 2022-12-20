@@ -1,21 +1,11 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-const Login = () =>
-	import(
-		/* webpackChunkName: "login_home_welcome" */ "./../views/Login.vue"
-	);
-const Home = () =>
-	import(
-		/* webpackChunkName: "login_home_welcome" */ "./../views/Home.vue"
-	);
-const Welcome = () =>
-	import(
-		/* webpackChunkName: "login_home_welcome" */ "./../views/Welcome.vue"
-	);
-const Users = () =>
-	import(
-		/* webpackChunkName: "users_rights_roles" */ "./../views/user"
-	);
+const Login = () => import(/* webpackChunkName: "login_home_welcome" */ "./../views/Login.vue");
+const Home = () => import(/* webpackChunkName: "login_home_welcome" */ "./../views/Home.vue");
+const Welcome = () => import(/* webpackChunkName: "login_home_welcome" */ "./../views/Welcome.vue");
+const User = () => import(/* webpackChunkName: "users_rights_roles" */ "./../views/user-manage/user");
+const Power = () => import(/* webpackChunkName: "users_rights_roles" */ "./../views/permission-manage/power");
+const Role = () => import(/* webpackChunkName: "users_rights_roles" */ "./../views/permission-manage/role");
 Vue.use(VueRouter);
 
 const routes = [
@@ -38,7 +28,15 @@ const routes = [
 			},
 			{
 				path: "/users",
-				component: Users
+				component: User
+			},
+			{
+				path: "/rights",
+				component: Power
+			},
+			{
+				path: "/roles",
+				component: Role
 			}
 		]
 	}
