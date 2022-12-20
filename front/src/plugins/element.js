@@ -1,5 +1,5 @@
 import Vue from "vue";
-import { Button, FormItem, Form, Input, Message, Container, Header, Aside, Main, Menu, Submenu, MenuItem, Breadcrumb, BreadcrumbItem, Card, Row, Col, Table, TableColumn, Pagination, Switch, Tooltip, Dialog, MessageBox, Tag, Tree } from "element-ui";
+import { Button, FormItem, Form, Input, Message, Container, Header, Aside, Main, Menu, Submenu, MenuItem, Breadcrumb, BreadcrumbItem, Card, Row, Col, Table, TableColumn, Pagination, Switch, Tooltip, Dialog, MessageBox, Tag, Tree, Select, Option } from "element-ui";
 
 Vue.use(Button);
 Vue.use(FormItem);
@@ -25,6 +25,8 @@ Vue.use(Tooltip);
 Vue.use(Dialog);
 Vue.use(Tag);
 Vue.use(Tree);
+Vue.use(Select);
+Vue.use(Option);
 // 导入弹框提示组件
 Vue.prototype.$message = Message;
 Vue.prototype.$confirm = MessageBox.confirm;

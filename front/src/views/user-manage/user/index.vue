@@ -49,14 +49,17 @@
 		</el-card>
 		<!-- 操作用户的对话框 -->
 		<user-dialog v-if="userDialogVisible" ref="userDialogRef" @refresh="getUserList"></user-dialog>
+		<role-dialog v-if="roleVisible" ref="roleRef" @refresh="getUserList"></role-dialog>
 	</div>
 </template>
 
 <script>
 import userDialog from "./components/userDialog.vue";
+import roleDialog from "./components/roleDialog.vue";
 export default {
 	components: {
-		userDialog
+		userDialog,
+		roleDialog
 	},
 	data() {
 		return {
@@ -71,7 +74,8 @@ export default {
 			userList: [],
 			total: 0,
 			// 控制用户对话框的显示和隐藏
-			userDialogVisible: false
+			userDialogVisible: false,
+			roleVisible: false
 		};
 	},
 	created() {
@@ -139,6 +143,14 @@ export default {
 			if (res.meta.status !== 200) return this.$message.error(res.meta.msg);
 			this.$message.success(res.meta.msg);
 			this.getUserList();
+		},
+		// 展示分配角色的对话框
+		showAllotRoleDialog(userInfo) {
+			this.roleVisible = true;
+			this.$nextTick(() => {
+				this.$refs.roleRef.allotRoleDialogVisible = true;
+				this.$refs.roleRef.init(userInfo);
+			});
 		}
 	}
 };
