@@ -63,7 +63,8 @@ export default {
 							roleName: this.roleForm.roleName,
 							roleDesc: this.roleForm.roleDesc
 					  });
-				if ((!this.roleForm.roleId && res.meta.status !== 201) || (this.roleForm.roleId && res.meta.status !== 200)) return this.$message.error(res.meta.msg);
+				if ((!this.roleForm.roleId && res.meta.status !== 201) || (this.roleForm.roleId && res.meta.status !== 200))
+					return this.$message.error(res.meta.msg);
 				this.$message.success(res.meta.msg);
 				this.roleDialogVisible = false;
 				this.$emit("refresh");

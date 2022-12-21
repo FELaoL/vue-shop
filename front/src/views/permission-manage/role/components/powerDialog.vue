@@ -2,7 +2,15 @@
 	<!-- 分配权限的对话框 -->
 	<el-dialog :title="allotRightDialogTitle" :visible.sync="allotRightDialogVisible" width="50%" @close="handleAllotRightDialogClose">
 		<!-- 树形控件 -->
-		<el-tree :data="rightList" :props="rightProps" show-checkbox default-expand-all node-key="id" :default-checked-keys="defaultRightChecked" ref="treeRef"></el-tree>
+		<el-tree
+			:data="rightList"
+			:props="rightProps"
+			show-checkbox
+			default-expand-all
+			node-key="id"
+			:default-checked-keys="defaultRightChecked"
+			ref="treeRef"
+		></el-tree>
 		<span slot="footer" class="dialog-footer">
 			<el-button @click="allotRightDialogVisible = false">取 消</el-button>
 			<el-button type="primary" @click="allotRight">确 定</el-button>

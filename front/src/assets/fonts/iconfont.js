@@ -8,26 +8,14 @@
 	var shouldInjectCss = script.getAttribute("data-injectcss");
 	var ready = function (fn) {
 		if (document.addEventListener) {
-			if (
-				~["complete", "loaded", "interactive"].indexOf(
-					document.readyState
-				)
-			) {
+			if (~["complete", "loaded", "interactive"].indexOf(document.readyState)) {
 				setTimeout(fn, 0);
 			} else {
 				var loadFn = function () {
-					document.removeEventListener(
-						"DOMContentLoaded",
-						loadFn,
-						false
-					);
+					document.removeEventListener("DOMContentLoaded", loadFn, false);
 					fn();
 				};
-				document.addEventListener(
-					"DOMContentLoaded",
-					loadFn,
-					false
-				);
+				document.addEventListener("DOMContentLoaded", loadFn, false);
 			}
 		} else if (document.attachEvent) {
 			IEContentLoaded(window, fn);

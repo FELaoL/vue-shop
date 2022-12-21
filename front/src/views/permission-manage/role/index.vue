@@ -19,7 +19,11 @@
 				<!-- 展开列 -->
 				<el-table-column type="expand">
 					<template slot-scope="scope">
-						<el-row :class="['bdbottom', index1 === 0 ? 'bdtop' : '', 'vcenter']" v-for="(item1, index1) in scope.row.children" :key="item1.id">
+						<el-row
+							:class="['bdbottom', index1 === 0 ? 'bdtop' : '', 'vcenter']"
+							v-for="(item1, index1) in scope.row.children"
+							:key="item1.id"
+						>
 							<!-- 渲染一级权限 -->
 							<el-col :span="5">
 								<el-tag closable @close="removeRight(scope.row, item1.id)">{{ item1.authName }}</el-tag>
@@ -28,13 +32,26 @@
 							<!-- 渲染二级和三级权限 -->
 							<el-col :span="19">
 								<!-- 通过for循环，嵌套渲染二级权限 -->
-								<el-row v-for="(item2, index2) in item1.children" :key="item2.id" :class="[index2 === 0 ? '' : 'bdtop', 'vcenter']">
+								<el-row
+									v-for="(item2, index2) in item1.children"
+									:key="item2.id"
+									:class="[index2 === 0 ? '' : 'bdtop', 'vcenter']"
+								>
 									<el-col :span="6">
-										<el-tag type="success" closable @close="removeRight(scope.row, item2.id)">{{ item2.authName }}</el-tag>
+										<el-tag type="success" closable @close="removeRight(scope.row, item2.id)">{{
+											item2.authName
+										}}</el-tag>
 										<i class="el-icon-caret-right"></i>
 									</el-col>
 									<el-col :span="18">
-										<el-tag type="warning" v-for="item3 in item2.children" :key="item3.id" closable @close="removeRight(scope.row, item3.id)">{{ item3.authName }}</el-tag>
+										<el-tag
+											type="warning"
+											v-for="item3 in item2.children"
+											:key="item3.id"
+											closable
+											@close="removeRight(scope.row, item3.id)"
+											>{{ item3.authName }}</el-tag
+										>
 									</el-col>
 								</el-row>
 							</el-col>
@@ -49,7 +66,9 @@
 					<template slot-scope="scope">
 						<el-button type="primary" icon="el-icon-edit" size="mini" @click="editRole(scope.row.id)">编辑</el-button>
 						<el-button type="danger" icon="el-icon-delete" size="mini" @click="removeRole(scope.row.id)">删除</el-button>
-						<el-button type="warning" icon="el-icon-setting" size="mini" @click="showSetRightDialog(scope.row)">分配角色</el-button>
+						<el-button type="warning" icon="el-icon-setting" size="mini" @click="showSetRightDialog(scope.row)"
+							>分配角色</el-button
+						>
 					</template>
 				</el-table-column>
 			</el-table>

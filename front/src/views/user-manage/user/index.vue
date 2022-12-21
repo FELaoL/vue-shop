@@ -39,13 +39,27 @@
 						<el-button type="danger" icon="el-icon-delete" size="mini" @click="removeUser(scope.row.id)"></el-button>
 						<!-- 分配角色按钮 -->
 						<el-tooltip effect="dark" content="分配角色" placement="top" :enterable="false">
-							<el-button type="warning" icon="el-icon-setting" size="mini" @click="showAllotRoleDialog(scope.row)"></el-button>
+							<el-button
+								type="warning"
+								icon="el-icon-setting"
+								size="mini"
+								@click="showAllotRoleDialog(scope.row)"
+							></el-button>
 						</el-tooltip>
 					</template>
 				</el-table-column>
 			</el-table>
 			<!-- 分页区域 -->
-			<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="queryInfo.pagenum" :page-sizes="[1, 2, 5, 10]" :page-size="queryInfo.pagesize" layout="total, sizes, prev, pager, next, jumper" :total="total"> </el-pagination>
+			<el-pagination
+				@size-change="handleSizeChange"
+				@current-change="handleCurrentChange"
+				:current-page="queryInfo.pagenum"
+				:page-sizes="[1, 2, 5, 10]"
+				:page-size="queryInfo.pagesize"
+				layout="total, sizes, prev, pager, next, jumper"
+				:total="total"
+			>
+			</el-pagination>
 		</el-card>
 		<!-- 操作用户的对话框 -->
 		<user-dialog v-if="userDialogVisible" ref="userDialogRef" @refresh="getUserList"></user-dialog>

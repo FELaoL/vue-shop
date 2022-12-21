@@ -120,7 +120,8 @@ export default {
 							email: this.userForm.email,
 							mobile: this.userForm.mobile
 					  });
-				if ((!this.userForm.id && res.meta.status !== 201) || (this.userForm.id && res.meta.status !== 200)) return this.$message.error(res.meta.msg);
+				if ((!this.userForm.id && res.meta.status !== 201) || (this.userForm.id && res.meta.status !== 200))
+					return this.$message.error(res.meta.msg);
 				// 提示成功
 				this.$message.success(res.meta.msg);
 				// 重新获取用户列表数据
