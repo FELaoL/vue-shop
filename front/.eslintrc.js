@@ -12,7 +12,7 @@ module.exports = {
 		"no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
 		"no-tabs": ["error", { allowIndentationTabs: true }],
 		indent: ["error", "tab", { ObjectExpression: "off" }],
-		"space-before-function-paren": ["error", "never"],
+		"space-before-function-paren": ["error", { anonymous: "ignore", named: "ignore", asyncArrow: "ignore" }],
 		quotes: ["error", "double"],
 		semi: ["error", "always"],
 		curly: ["error", "multi-or-nest", "consistent"],

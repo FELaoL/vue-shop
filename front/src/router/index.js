@@ -8,6 +8,8 @@ const Power = () => import(/* webpackChunkName: "users_rights_roles" */ "./../vi
 const Role = () => import(/* webpackChunkName: "users_rights_roles" */ "./../views/permission-manage/role");
 const Categories = () => import(/* webpackChunkName: "categories_params_goods_addgood" */ "./../views/good-manage/category");
 const Params = () => import(/* webpackChunkName: "categories_params_goods_addgood" */ "./../views/good-manage/parameter");
+const Goods = () => import(/* webpackChunkName: "categories_params_goods_addgood" */ "./../views/good-manage/list");
+const AddGood = () => import(/* webpackChunkName: "categories_params_goods_addgood" */ "./../views/good-manage/list/editGood");
 Vue.use(VueRouter);
 
 const routes = [
@@ -47,6 +49,14 @@ const routes = [
 			{
 				path: "/params",
 				component: Params
+			},
+			{
+				path: "/goods",
+				component: Goods
+			},
+			{
+				path: "/goods/add",
+				component: AddGood
 			}
 		]
 	}
