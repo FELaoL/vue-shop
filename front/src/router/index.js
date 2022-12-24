@@ -7,6 +7,7 @@ const User = () => import(/* webpackChunkName: "users_rights_roles" */ "./../vie
 const Power = () => import(/* webpackChunkName: "users_rights_roles" */ "./../views/permission-manage/power");
 const Role = () => import(/* webpackChunkName: "users_rights_roles" */ "./../views/permission-manage/role");
 const Categories = () => import(/* webpackChunkName: "categories_params_goods_addgood" */ "./../views/good-manage/category");
+const Params = () => import(/* webpackChunkName: "categories_params_goods_addgood" */ "./../views/good-manage/parameter");
 Vue.use(VueRouter);
 
 const routes = [
@@ -42,6 +43,10 @@ const routes = [
 			{
 				path: "/categories",
 				component: Categories
+			},
+			{
+				path: "/params",
+				component: Params
 			}
 		]
 	}
