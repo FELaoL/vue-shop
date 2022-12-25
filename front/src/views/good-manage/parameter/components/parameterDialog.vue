@@ -62,7 +62,6 @@ export default {
 		addOrUpdateAttr() {
 			this.$refs.attrFormRef.validate(async valid => {
 				if (!valid) return;
-				console.log(this.attrForm.attr_vals);
 				const { data: res } = !this.attrForm.attr_id
 					? await this.$http.post(`categories/${this.catId}/attributes`, {
 							attr_name: this.attrForm.attr_name,
