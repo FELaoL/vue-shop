@@ -11,6 +11,7 @@ const Params = () => import(/* webpackChunkName: "categories_params_goods_addgoo
 const Goods = () => import(/* webpackChunkName: "categories_params_goods_addgood" */ "./../views/good-manage/list");
 const AddGood = () => import(/* webpackChunkName: "categories_params_goods_addgood" */ "./../views/good-manage/list/editGood");
 const Orders = () => import(/* webpackChunkName: "orders_reports" */ "./../views/order-manage/list");
+const Reports = () => import(/* webpackChunkName: "orders_reports" */ "./../views/data-statistics/report");
 Vue.use(VueRouter);
 
 const routes = [
@@ -62,6 +63,10 @@ const routes = [
 			{
 				path: "/orders",
 				component: Orders
+			},
+			{
+				path: "/reports",
+				component: Reports
 			}
 		]
 	}
