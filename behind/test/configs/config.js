@@ -1,5 +1,5 @@
 module.exports = {
-	"baseURL" : "/api/private/v1/",
-	"username" : "admin",
-	"password" : "123456"
-}
+	baseURL: "/api/private/v1/",
+	username: "admin",
+	password: "123456"
+};

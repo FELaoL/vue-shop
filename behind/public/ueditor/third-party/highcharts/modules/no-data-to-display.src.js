@@ -8,8 +8,9 @@
  * License: www.highcharts.com/license
  */
 
-(function (H) { // docs
-	
+(function (H) {
+	// docs
+
 	var seriesTypes = H.seriesTypes,
 		chartPrototype = H.Chart.prototype,
 		defaultOptions = H.getOptions(),
@@ -17,29 +18,28 @@
 
 	// Add language option
 	extend(defaultOptions.lang, {
-		noData: 'No data to display'
+		noData: "No data to display"
 	});
-	
+
 	// Add default display options for message
 	defaultOptions.noData = {
 		position: {
 			x: 0,
-			y: 0,			
-			align: 'center',
-			verticalAlign: 'middle'
+			y: 0,
+			align: "center",
+			verticalAlign: "middle"
 		},
-		attr: {						
-		},
-		style: {	
-			fontWeight: 'bold',		
-			fontSize: '12px',
-			color: '#60606a'		
+		attr: {},
+		style: {
+			fontWeight: "bold",
+			fontSize: "12px",
+			color: "#60606a"
 		}
 	};
 
 	/**
 	 * Define hasData functions for series. These return true if there are data points on this series within the plot area
-	 */	
+	 */
 	function hasDataPie() {
 		return !!this.points.length; /* != 0 */
 	}
@@ -57,11 +57,11 @@
 	H.Series.prototype.hasData = function () {
 		return this.dataMax !== undefined && this.dataMin !== undefined;
 	};
-	
+
 	/**
 	 * Display a no-data message.
 	 *
-	 * @param {String} str An optional message to show in place of the default one 
+	 * @param {String} str An optional message to show in place of the default one
 	 */
 	chartPrototype.showNoData = function (str) {
 		var chart = this,
@@ -70,17 +70,14 @@
 			noDataOptions = options.noData;
 
 		if (!chart.noDataLabel) {
-			chart.noDataLabel = chart.renderer.label(text, 0, 0, null, null, null, null, null, 'no-data')
-				.attr(noDataOptions.attr)
-				.css(noDataOptions.style)
-				.add();
-			chart.noDataLabel.align(extend(chart.noDataLabel.getBBox(), noDataOptions.position), false, 'plotBox');
+			chart.noDataLabel = chart.renderer.label(text, 0, 0, null, null, null, null, null, "no-data").attr(noDataOptions.attr).css(noDataOptions.style).add();
+			chart.noDataLabel.align(extend(chart.noDataLabel.getBBox(), noDataOptions.position), false, "plotBox");
 		}
 	};
 
 	/**
-	 * Hide no-data message	
-	 */	
+	 * Hide no-data message
+	 */
 	chartPrototype.hideNoData = function () {
 		var chart = this;
 		if (chart.noDataLabel) {
@@ -90,16 +87,16 @@
 
 	/**
 	 * Returns true if there are data points within the plot area now
-	 */	
+	 */
 	chartPrototype.hasData = function () {
 		var chart = this,
 			series = chart.series,
 			i = series.length;
 
 		while (i--) {
-			if (series[i].hasData() && !series[i].options.isInternal) { 
+			if (series[i].hasData() && !series[i].options.isInternal) {
 				return true;
-			}	
+			}
 		}
 
 		return false;
@@ -121,8 +118,7 @@
 	 * Add event listener to handle automatic display of no-data message
 	 */
 	chartPrototype.callbacks.push(function (chart) {
-		H.addEvent(chart, 'load', handleNoData);
-		H.addEvent(chart, 'redraw', handleNoData);
+		H.addEvent(chart, "load", handleNoData);
+		H.addEvent(chart, "redraw", handleNoData);
 	});
-
-}(Highcharts));
+})(Highcharts);

@@ -1,11 +1,11 @@
 (function (Highcharts) {
 	var seriesTypes = Highcharts.seriesTypes,
 		each = Highcharts.each;
-	
+
 	seriesTypes.heatmap = Highcharts.extendClass(seriesTypes.map, {
-		colorKey: 'z',
+		colorKey: "z",
 		useMapGeometry: false,
-		pointArrayMap: ['y', 'z'],
+		pointArrayMap: ["y", "z"],
 		translate: function () {
 			var series = this,
 				options = series.options,
@@ -13,7 +13,7 @@
 				dataMax = Number.MIN_VALUE;
 
 			series.generatePoints();
-	
+
 			each(series.data, function (point) {
 				var x = point.x,
 					y = point.y,
@@ -21,20 +21,14 @@
 					xPad = (options.colsize || 1) / 2,
 					yPad = (options.rowsize || 1) / 2;
 
-				point.path = [
-					'M', x - xPad, y - yPad,
-					'L', x + xPad, y - yPad,
-					'L', x + xPad, y + yPad,
-					'L', x - xPad, y + yPad,
-					'Z'
-				];
-				
-				point.shapeType = 'path';
+				point.path = ["M", x - xPad, y - yPad, "L", x + xPad, y - yPad, "L", x + xPad, y + yPad, "L", x - xPad, y + yPad, "Z"];
+
+				point.shapeType = "path";
 				point.shapeArgs = {
 					d: series.translatePath(point.path)
 				};
-				
-				if (typeof value === 'number') {
+
+				if (typeof value === "number") {
 					if (value > dataMax) {
 						dataMax = value;
 					} else if (value < dataMin) {
@@ -42,12 +36,10 @@
 					}
 				}
 			});
-			
+
 			series.translateColors(dataMin, dataMax);
 		},
-		
+
 		getBox: function () {}
-			
 	});
-	
-}(Highcharts));
+})(Highcharts);
