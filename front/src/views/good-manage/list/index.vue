@@ -11,8 +11,10 @@
 		<el-card>
 			<el-row :gutter="20">
 				<el-col :span="8">
-					<el-input placeholder="请输入内容" v-model="queryParams.query" clearable @clear="getGoodList">
-						<el-button slot="append" icon="el-icon-search" @click="getGoodList"></el-button>
+					<el-input v-model="queryParams.query" placeholder="请输入内容" clearable @clear="getGoodList">
+						<template slot="append">
+							<el-button icon="el-icon-search" @click="getGoodList"></el-button>
+						</template>
 					</el-input>
 				</el-col>
 				<el-col :span="4">
@@ -20,7 +22,7 @@
 				</el-col>
 			</el-row>
 			<!-- table表格区域 -->
-			<el-table border stripe :data="goodList">
+			<el-table :data="goodList" border stripe>
 				<el-table-column type="index"></el-table-column>
 				<el-table-column prop="goods_name" label="商品名称"></el-table-column>
 				<el-table-column prop="goods_price" label="商品价格（元）" width="95px"></el-table-column>
@@ -40,13 +42,13 @@
 			<!-- 分页区域 -->
 			<el-pagination
 				background
+				:current-page="queryParams.pagenum"
+				:page-size="queryParams.pagesize"
+				:total="total"
+				:page-sizes="[5, 10, 15, 20]"
+				layout="total, sizes, prev, pager, next, jumper"
 				@size-change="handleSizeChange"
 				@current-change="handleCurrentChange"
-				:current-page="queryParams.pagenum"
-				:page-sizes="[5, 10, 15, 20]"
-				:page-size="queryParams.pagesize"
-				layout="total, sizes, prev, pager, next, jumper"
-				:total="total"
 			>
 			</el-pagination>
 		</el-card>
@@ -69,6 +71,7 @@ export default {
 			}
 		};
 	},
+	computed: {},
 	methods: {
 		// 根据分页获取对应的商品列表
 		async getGoodList() {
@@ -110,7 +113,6 @@ export default {
 			this.$router.push({ path: "/goods/add", query: { goodId } });
 		}
 	},
-	computed: {},
 	created() {
 		this.getGoodList();
 	}

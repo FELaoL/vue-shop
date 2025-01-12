@@ -1,10 +1,12 @@
 <template>
 	<!-- 物流进度的对话框 -->
-	<el-dialog title="物流进度" :visible.sync="logisticsDialogVisible" @close="handleLogisticsDialogClosed" width="50%">
+	<el-dialog :visible.sync="logisticsDialogVisible" title="物流进度" width="50%" @close="handleLogisticsDialogClosed">
 		<el-timeline>
-			<el-timeline-item v-for="(logistics, index) in logisticsData" :key="index" :timestamp="logistics.time">
-				{{ logistics.context }}
-			</el-timeline-item>
+			<template v-for="(logistics, index) in logisticsData">
+				<el-timeline-item :key="index" :timestamp="logistics.time">
+					{{ logistics.context }}
+				</el-timeline-item>
+			</template>
 		</el-timeline>
 	</el-dialog>
 </template>

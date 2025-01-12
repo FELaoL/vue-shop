@@ -12,7 +12,7 @@
 			<!-- 提示区域 -->
 			<el-alert title="添加商品信息" type="info" center show-icon :closable="false"></el-alert>
 			<!-- 步骤条区域 -->
-			<el-steps :space="200" :active="activeIndex - 0" finish-status="success" align-center>
+			<el-steps :active="activeIndex - 0" :space="200" finish-status="success" align-center>
 				<el-step title="基本信息"></el-step>
 				<el-step title="商品参数"></el-step>
 				<el-step title="商品属性"></el-step>
@@ -21,8 +21,8 @@
 				<el-step title="完成"></el-step>
 			</el-steps>
 			<!-- tab栏区域 -->
-			<el-form :model="addGoodForm" :rules="addGoodFormRules" ref="addGoodFormRef" label-width="100px" label-position="top">
-				<el-tabs :tab-position="'left'" v-model="activeIndex" :before-leave="beforeLeave" @tab-click="tabClicked">
+			<el-form ref="addGoodFormRef" :model="addGoodForm" :rules="addGoodFormRules" label-width="100px" label-position="top">
+				<el-tabs v-model="activeIndex" :before-leave="beforeLeave" :tab-position="'left'" @tab-click="tabClicked">
 					<el-tab-pane label="基本信息" name="0">
 						<el-form-item label="商品名称" prop="goods_name">
 							<el-input v-model="addGoodForm.goods_name"></el-input>
@@ -38,39 +38,37 @@
 						</el-form-item>
 						<el-form-item label="商品分类" prop="goods_cat">
 							<el-cascader
-								placeholder="请选择"
 								v-model="addGoodForm.goods_cat"
 								:options="categoryList"
 								:props="props"
-								@change="handleChange"
+								placeholder="请选择"
 								clearable
+								@change="handleChange"
 							></el-cascader>
 						</el-form-item>
 					</el-tab-pane>
 					<el-tab-pane label="商品参数" name="1">
 						<!-- 渲染表单的item项 -->
-						<el-form-item :label="item.attr_name" v-for="item in manyAttrList" :key="item.attr_id">
-							<el-checkbox-group v-model="item.attr_vals">
-								<el-checkbox
-									:label="item1"
-									v-for="(item1, index1) in item.attr_vals"
-									:key="index1"
-									border
-								></el-checkbox>
-							</el-checkbox-group>
-						</el-form-item>
+						<template v-for="item in manyAttrList">
+							<el-form-item :label="item.attr_name" :key="item.attr_id">
+								<el-checkbox-group v-model="item.attr_vals">
+									<template v-for="(item1, index1) in item.attr_vals">
+										<el-checkbox :label="item1" :key="index1" border></el-checkbox>
+									</template>
+								</el-checkbox-group>
+							</el-form-item>
+						</template>
 					</el-tab-pane>
 					<el-tab-pane label="商品属性" name="2">
-						<el-form-item :label="item.attr_name" v-for="item in onlyAttrList" :key="item.attr_id">
-							<el-checkbox-group v-model="item.attr_vals">
-								<el-checkbox
-									:label="item1"
-									v-for="(item1, index1) in item.attr_vals"
-									:key="index1"
-									border
-								></el-checkbox>
-							</el-checkbox-group>
-						</el-form-item>
+						<template v-for="item in onlyAttrList">
+							<el-form-item :label="item.attr_name" :key="item.attr_id">
+								<el-checkbox-group v-model="item.attr_vals">
+									<template v-for="(item1, index1) in item.attr_vals">
+										<el-checkbox :label="item1" :key="index1" border></el-checkbox>
+									</template>
+								</el-checkbox-group>
+							</el-form-item>
+						</template>
 					</el-tab-pane>
 					<el-tab-pane label="商品图片" name="3">
 						<!-- action 表示图片要上传到的后台API地址 -->
@@ -89,12 +87,14 @@
 					<el-tab-pane label="商品内容" name="4">
 						<!-- 富文本编辑器组件 -->
 						<quill-editor class="vue-quill-editor" v-model="addGoodForm.goods_introduce" />
-						<el-button type="primary" class="addGoodsBtn" @click="addGood">{{ menu }}</el-button>
+						<el-button class="addGoodsBtn" type="primary" @click="addGood">{{ menu }}</el-button>
 					</el-tab-pane>
 				</el-tabs>
 			</el-form>
 		</el-card>
-		<pic-preview-dialog v-if="picPreviewVisible" ref="picPreviewRef"></pic-preview-dialog>
+		<template v-if="picPreviewVisible">
+			<pic-preview-dialog ref="picPreviewRef"></pic-preview-dialog>
+		</template>
 	</div>
 </template>
 
@@ -156,6 +156,12 @@ export default {
 			fileList: [],
 			menu: "添加商品"
 		};
+	},
+	computed: {
+		catId() {
+			if (this.addGoodForm.goods_cat.length === 3) return this.addGoodForm.goods_cat[2];
+			return null;
+		}
 	},
 	methods: {
 		// 获取所有商品分类数据
@@ -307,12 +313,6 @@ export default {
 			this.getGoodInfo(goodId);
 		} else {
 			this.menu = "添加商品";
-		}
-	},
-	computed: {
-		catId() {
-			if (this.addGoodForm.goods_cat.length === 3) return this.addGoodForm.goods_cat[2];
-			return null;
 		}
 	}
 };

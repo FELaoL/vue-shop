@@ -8,15 +8,15 @@
 		</el-breadcrumb>
 		<!-- 卡片视图 -->
 		<el-card>
-			<el-table border stripe :data="rightList">
+			<el-table :data="rightList" border stripe>
 				<el-table-column type="index"> </el-table-column>
 				<el-table-column prop="authName" label="权限名称"> </el-table-column>
 				<el-table-column prop="path" label="路径"> </el-table-column>
 				<el-table-column prop="level" label="权限等级">
 					<template slot-scope="scope">
-						<el-tag v-if="scope.row.level === '0'">一级</el-tag>
-						<el-tag type="success" v-else-if="scope.row.level === '1'">二级</el-tag>
-						<el-tag type="warning" v-else>三级</el-tag>
+						<template v-if="scope.row.level === '0'"><el-tag>一级</el-tag></template>
+						<template v-else-if="scope.row.level === '1'"><el-tag type="success">二级</el-tag></template>
+						<template v-else><el-tag type="warning">三级</el-tag></template>
 					</template>
 				</el-table-column>
 			</el-table>
@@ -32,10 +32,6 @@ export default {
 			rightList: []
 		};
 	},
-	created() {
-		// 获取所有的权限
-		this.getRightList();
-	},
 	methods: {
 		// 获取权限列表
 		async getRightList() {
@@ -44,6 +40,10 @@ export default {
 			this.$message.success(res.meta.msg);
 			this.rightList = res.data;
 		}
+	},
+	created() {
+		// 获取所有的权限
+		this.getRightList();
 	}
 };
 </script>

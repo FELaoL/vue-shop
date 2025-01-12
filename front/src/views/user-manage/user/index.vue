@@ -11,8 +11,10 @@
 			<!-- 搜索与添加区域 -->
 			<el-row :gutter="20">
 				<el-col :span="8">
-					<el-input placeholder="请输入内容" v-model="queryInfo.query" clearable @clear="getUserList">
-						<el-button slot="append" icon="el-icon-search" @click="getUserList"></el-button>
+					<el-input v-model="queryInfo.query" placeholder="请输入内容" clearable @clear="getUserList">
+						<template slot="append">
+							<el-button icon="el-icon-search" @click="getUserList"></el-button>
+						</template>
 					</el-input>
 				</el-col>
 				<el-col :span="4">
@@ -20,7 +22,7 @@
 				</el-col>
 			</el-row>
 			<!-- 用户列表区域 -->
-			<el-table border stripe :data="userList">
+			<el-table :data="userList" border stripe>
 				<el-table-column type="index"> </el-table-column>
 				<el-table-column prop="username" label="姓名"> </el-table-column>
 				<el-table-column prop="email" label="邮箱"> </el-table-column>
@@ -51,19 +53,23 @@
 			</el-table>
 			<!-- 分页区域 -->
 			<el-pagination
+				:current-page="queryInfo.pagenum"
+				:page-size="queryInfo.pagesize"
+				:total="total"
+				:page-sizes="[1, 2, 5, 10]"
+				layout="total, sizes, prev, pager, next, jumper"
 				@size-change="handleSizeChange"
 				@current-change="handleCurrentChange"
-				:current-page="queryInfo.pagenum"
-				:page-sizes="[1, 2, 5, 10]"
-				:page-size="queryInfo.pagesize"
-				layout="total, sizes, prev, pager, next, jumper"
-				:total="total"
 			>
 			</el-pagination>
 		</el-card>
 		<!-- 操作用户的对话框 -->
-		<user-dialog v-if="userDialogVisible" ref="userDialogRef" @refresh="getUserList"></user-dialog>
-		<role-dialog v-if="roleVisible" ref="roleRef" @refresh="getUserList"></role-dialog>
+		<template v-if="userDialogVisible">
+			<user-dialog ref="userDialogRef" @refresh="getUserList"></user-dialog>
+		</template>
+		<template v-if="roleVisible">
+			<role-dialog ref="roleRef" @refresh="getUserList"></role-dialog>
+		</template>
 	</div>
 </template>
 
@@ -91,9 +97,6 @@ export default {
 			userDialogVisible: false,
 			roleVisible: false
 		};
-	},
-	created() {
-		this.getUserList();
 	},
 	methods: {
 		async getUserList() {
@@ -166,6 +169,9 @@ export default {
 				this.$refs.roleRef.init(userInfo);
 			});
 		}
+	},
+	created() {
+		this.getUserList();
 	}
 };
 </script>

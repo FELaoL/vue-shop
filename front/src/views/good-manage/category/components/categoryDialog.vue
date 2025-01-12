@@ -1,28 +1,32 @@
 <template>
 	<!-- 添加分类的对话框 -->
-	<el-dialog :title="categoryDialogTitle" :visible.sync="categoryDialogVisible" @close="handleCategoryDialogClosed" width="50%">
+	<el-dialog :title="categoryDialogTitle" :visible.sync="categoryDialogVisible" width="50%" @close="handleCategoryDialogClosed">
 		<!-- 添加分类的表单 -->
-		<el-form :model="categoryForm" :rules="categoryFormRules" ref="categoryFormRef" label-width="100px">
+		<el-form ref="categoryFormRef" :model="categoryForm" :rules="categoryFormRules" label-width="100px">
 			<el-form-item label="分类名称" prop="cat_name">
 				<el-input v-model="categoryForm.cat_name"></el-input>
 			</el-form-item>
-			<el-form-item label="父级分类" v-if="!categoryForm.cat_id">
-				<!-- options用来指定数据源 -->
-				<!-- props用来指定配置对象 -->
-				<el-cascader
-					placeholder="请选择"
-					v-model="catPid"
-					:options="opCategoryList"
-					:props="props"
-					@change="handleChange"
-					clearable
-				></el-cascader>
-			</el-form-item>
+			<template v-if="!categoryForm.cat_id">
+				<el-form-item label="父级分类">
+					<!-- options用来指定数据源 -->
+					<!-- props用来指定配置对象 -->
+					<el-cascader
+						v-model="catPid"
+						:options="opCategoryList"
+						:props="props"
+						placeholder="请选择"
+						clearable
+						@change="handleChange"
+					></el-cascader>
+				</el-form-item>
+			</template>
 		</el-form>
-		<span slot="footer" class="dialog-footer">
-			<el-button @click="categoryDialogVisible = false">取 消</el-button>
-			<el-button type="primary" @click="addOrUpdateCategory">确 定</el-button>
-		</span>
+		<template slot="footer">
+			<span class="dialog-footer">
+				<el-button @click="categoryDialogVisible = false">取 消</el-button>
+				<el-button type="primary" @click="addOrUpdateCategory">确 定</el-button>
+			</span>
+		</template>
 	</el-dialog>
 </template>
 

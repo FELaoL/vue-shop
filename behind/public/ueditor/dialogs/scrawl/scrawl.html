@@ -8,7 +8,7 @@
 		<link rel="stylesheet" type="text/css" href="scrawl.css" />
 	</head>
 	<body>
-		<div class="main" id="J_wrap">
+		<div id="J_wrap" class="main">
 			<div class="hot">
 				<div class="drawBoard border_style1">
 					<canvas id="J_brushBoard" class="brushBorad" width="360" height="300"></canvas>
@@ -37,26 +37,26 @@
 				<div id="J_colorBar" class="colorBar"></div>
 				<div id="J_brushBar" class="sectionBar">
 					<em class="brushIcon"></em>
-					<a href="javascript:void(0)" class="size1">1</a>
-					<a href="javascript:void(0)" class="size2">3</a>
-					<a href="javascript:void(0)" class="size3">5</a>
-					<a href="javascript:void(0)" class="size4">7</a>
+					<a class="size1" href="javascript:void(0)">1</a>
+					<a class="size2" href="javascript:void(0)">3</a>
+					<a class="size3" href="javascript:void(0)">5</a>
+					<a class="size4" href="javascript:void(0)">7</a>
 				</div>
 				<div id="J_eraserBar" class="sectionBar">
 					<em class="eraserIcon"></em>
-					<a href="javascript:void(0)" class="size1">1</a>
-					<a href="javascript:void(0)" class="size2">3</a>
-					<a href="javascript:void(0)" class="size3">5</a>
-					<a href="javascript:void(0)" class="size4">7</a>
+					<a class="size1" href="javascript:void(0)">1</a>
+					<a class="size2" href="javascript:void(0)">3</a>
+					<a class="size3" href="javascript:void(0)">5</a>
+					<a class="size4" href="javascript:void(0)">7</a>
 				</div>
 				<div class="sectionBar">
 					<div id="J_addImg" class="addImgH">
 						<em class="icon"></em>
 						<em class="text"><var id="lang_input_addPic"></var></em>
-						<form method="post" id="fileForm" enctype="multipart/form-data" class="addImgH_form" target="up">
-							<input type="file" name="upfile" id="J_imgTxt" accept="image/gif,image/jpeg,image/png,image/jpg,image/bmp" />
+						<form id="fileForm" class="addImgH_form" method="post" enctype="multipart/form-data" target="up">
+							<input id="J_imgTxt" type="file" name="upfile" accept="image/gif,image/jpeg,image/png,image/jpg,image/bmp" />
 						</form>
-						<iframe name="up" style="display: none"></iframe>
+						<iframe style="display: none" name="up"></iframe>
 					</div>
 				</div>
 				<div class="sectionBar">

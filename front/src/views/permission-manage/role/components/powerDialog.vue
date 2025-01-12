@@ -5,16 +5,18 @@
 		<el-tree
 			:data="rightList"
 			:props="rightProps"
+			:default-checked-keys="defaultRightChecked"
 			show-checkbox
 			default-expand-all
 			node-key="id"
-			:default-checked-keys="defaultRightChecked"
 			ref="treeRef"
 		></el-tree>
-		<span slot="footer" class="dialog-footer">
-			<el-button @click="allotRightDialogVisible = false">取 消</el-button>
-			<el-button type="primary" @click="allotRight">确 定</el-button>
-		</span>
+		<template slot="footer">
+			<span class="dialog-footer">
+				<el-button @click="allotRightDialogVisible = false">取 消</el-button>
+				<el-button type="primary" @click="allotRight">确 定</el-button>
+			</span>
+		</template>
 	</el-dialog>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
 	<!-- 图片预览 -->
-	<el-dialog title="图片预览" :visible.sync="dialogVisible" width="50%">
-		<img :src="previewUrl" alt="" class="previewImg" />
+	<el-dialog :visible.sync="dialogVisible" title="图片预览" width="50%">
+		<img class="previewImg" :src="previewUrl" alt="" />
 	</el-dialog>
 </template>
 

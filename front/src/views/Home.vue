@@ -15,39 +15,38 @@
 				<div class="toggle-button" @click="toggleCollapse">|||</div>
 				<!-- 侧边栏菜单区域 -->
 				<el-menu
+					:collapse="isCollapse"
+					:default-active="activePath"
 					background-color="#333744"
 					text-color="#fff"
 					unique-opened
 					router
-					:collapse="isCollapse"
 					:collapse-transition="false"
 					active-text-color="#409EFF"
-					:default-active="activePath"
 				>
 					<!-- 一级菜单 -->
-					<el-submenu :index="item.id + ''" v-for="item in menuList" :key="item.id">
-						<!-- 一级菜单的模板区域 -->
-						<template slot="title">
-							<!-- 图标 -->
-							<i :class="iconsObj[item.id]"></i>
-							<!-- 文本 -->
-							<span>{{ item.authName }}</span>
-						</template>
-						<!-- 二级菜单 -->
-						<el-menu-item
-							:index="'/' + subItem.path"
-							v-for="subItem in item.children"
-							:key="subItem.id"
-							@click="saveNavState('/' + subItem.path)"
-						>
+					<template v-for="item in menuList" :key="item.id">
+						<el-submenu :index="item.id + ''">
+							<!-- 一级菜单的模板区域 -->
 							<template slot="title">
 								<!-- 图标 -->
-								<i class="el-icon-menu"></i>
+								<i :class="iconsObj[item.id]"></i>
 								<!-- 文本 -->
-								<span>{{ subItem.authName }}</span>
+								<span>{{ item.authName }}</span>
 							</template>
-						</el-menu-item>
-					</el-submenu>
+							<!-- 二级菜单 -->
+							<template v-for="subItem in item.children">
+								<el-menu-item :index="'/' + subItem.path" :key="subItem.id" @click="saveNavState('/' + subItem.path)">
+									<template slot="title">
+										<!-- 图标 -->
+										<i class="el-icon-menu"></i>
+										<!-- 文本 -->
+										<span>{{ subItem.authName }}</span>
+									</template>
+								</el-menu-item>
+							</template>
+						</el-submenu>
+					</template>
 				</el-menu>
 			</el-aside>
 			<!-- 右侧内容主体 -->
@@ -78,10 +77,6 @@ export default {
 			activePath: ""
 		};
 	},
-	created() {
-		this.getMenuList();
-		this.activePath = window.sessionStorage.getItem("activePath");
-	},
 	methods: {
 		logout() {
 			window.sessionStorage.clear();
@@ -103,6 +98,10 @@ export default {
 			window.sessionStorage.setItem("activePath", activePath);
 			this.activePath = activePath;
 		}
+	},
+	created() {
+		this.getMenuList();
+		this.activePath = window.sessionStorage.getItem("activePath");
 	}
 };
 </script>

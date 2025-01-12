@@ -16,12 +16,12 @@
 					<span>选择商品分类:</span>
 					<!-- 选择商品分类的级联选择框 -->
 					<el-cascader
-						placeholder="请选择"
 						v-model="catPid"
 						:options="opCategoryList"
 						:props="props"
-						@change="handleChange"
+						placeholder="请选择"
 						clearable
+						@change="handleChange"
 					></el-cascader>
 				</el-col>
 			</el-row>
@@ -30,37 +30,36 @@
 				<!-- 添加动态参数的面板 -->
 				<el-tab-pane label="动态参数" name="many">
 					<!-- 添加参数的按钮 -->
-					<el-button type="primary" size="mini" :disabled="isBtnDisabled" @click="addAttr">添加参数</el-button>
+					<el-button :disabled="isBtnDisabled" type="primary" size="mini" @click="addAttr">添加参数</el-button>
 					<!-- 动态参数表格 -->
-					<el-table border stripe :data="manyAttrList">
+					<el-table :data="manyAttrList" border stripe>
 						<!-- 展开行 -->
 						<el-table-column type="expand">
 							<template slot-scope="scope">
 								<!-- 循环渲染tag标签 -->
-								<el-tag
-									class="R"
-									v-for="(item, index) in scope.row.attr_vals"
-									:key="index"
-									closable
-									@close="handleClose(index, scope.row)"
-								>
-									{{ item }}
-								</el-tag>
+								<template v-for="(item, index) in scope.row.attr_vals">
+									<el-tag class="R" :key="index" closable @close="handleClose(index, scope.row)">
+										{{ item }}
+									</el-tag>
+								</template>
 								<!-- 输入的文本框 -->
-								<el-input
-									class="input-new-tag R"
-									v-if="scope.row.inputVisible"
-									v-model="scope.row.inputValue"
-									ref="saveTagInput"
-									size="small"
-									@keyup.enter.native="handleInputConfirm(scope.row)"
-									@blur="handleInputConfirm(scope.row)"
-								>
-								</el-input>
+								<template v-if="scope.row.inputVisible">
+									<el-input
+										class="input-new-tag R"
+										ref="saveTagInput"
+										v-model="scope.row.inputValue"
+										size="small"
+										@keyup.enter.native="handleInputConfirm(scope.row)"
+										@blur="handleInputConfirm(scope.row)"
+									>
+									</el-input>
+								</template>
 								<!-- 添加按钮 -->
-								<el-button v-else class="button-new-tag R" size="small" @click="showInput(scope.row)"
-									>+ New Tag</el-button
-								>
+								<template v-else>
+									<el-button class="button-new-tag R" size="small" @click="showInput(scope.row)"
+										>+ New Tag</el-button
+									>
+								</template>
 							</template>
 						</el-table-column>
 						<!-- 索引列 -->
@@ -79,34 +78,33 @@
 				<!-- 添加静态属性的面板 -->
 				<el-tab-pane label="静态属性" name="only">
 					<!-- 添加属性的按钮 -->
-					<el-button type="primary" size="mini" :disabled="isBtnDisabled" @click="addAttr">添加属性</el-button>
+					<el-button :disabled="isBtnDisabled" type="primary" size="mini" @click="addAttr">添加属性</el-button>
 					<!-- 静态属性表格 -->
-					<el-table border stripe :data="onlyAttrList">
+					<el-table :data="onlyAttrList" border stripe>
 						<!-- 展开行 -->
 						<el-table-column type="expand">
 							<template slot-scope="scope">
-								<el-tag
-									class="R"
-									v-for="(item, index) in scope.row.attr_vals"
-									:key="index"
-									closable
-									@close="handleClose(index, scope.row)"
-								>
-									{{ item }}
-								</el-tag>
-								<el-input
-									class="input-new-tag R"
-									v-if="scope.row.inputVisible"
-									v-model="scope.row.inputValue"
-									ref="saveTagInput"
-									size="small"
-									@keyup.enter.native="handleInputConfirm(scope.row)"
-									@blur="handleInputConfirm(scope.row)"
-								>
-								</el-input>
-								<el-button v-else class="button-new-tag R" size="small" @click="showInput(scope.row)"
-									>+ New Tag</el-button
-								>
+								<template v-for="(item, index) in scope.row.attr_vals">
+									<el-tag class="R" :key="index" closable @close="handleClose(index, scope.row)">
+										{{ item }}
+									</el-tag>
+								</template>
+								<template v-if="scope.row.inputVisible">
+									<el-input
+										class="input-new-tag R"
+										ref="saveTagInput"
+										v-model="scope.row.inputValue"
+										size="small"
+										@keyup.enter.native="handleInputConfirm(scope.row)"
+										@blur="handleInputConfirm(scope.row)"
+									>
+									</el-input>
+								</template>
+								<template v-else>
+									<el-button class="button-new-tag R" size="small" @click="showInput(scope.row)"
+										>+ New Tag</el-button
+									>
+								</template>
 							</template>
 						</el-table-column>
 						<!-- 索引列 -->
@@ -124,7 +122,9 @@
 				</el-tab-pane>
 			</el-tabs>
 		</el-card>
-		<parameter-dialog v-if="parameterVisible" ref="parameterRef" @refresh="getAttributeList"></parameter-dialog>
+		<template v-if="parameterVisible">
+			<parameter-dialog ref="parameterRef" @refresh="getAttributeList"></parameter-dialog>
+		</template>
 	</div>
 </template>
 
@@ -159,9 +159,17 @@ export default {
 			parameterVisible: false
 		};
 	},
-	created() {
-		// 获取所有的商品分类列表
-		this.getThreeCategoryList();
+	computed: {
+		// 如果按钮需要被禁用，则返回true，否则返回false
+		isBtnDisabled() {
+			if (this.catPid.length !== 3) return true;
+			else return false;
+		},
+		// 当前选中的三级分类的id
+		catId() {
+			if (this.catPid.length === 3) return this.catPid[this.catPid.length - 1];
+			return null;
+		}
 	},
 	methods: {
 		// 获取所有的商品分类列表
@@ -299,17 +307,9 @@ export default {
 			this.saveAttr(attr, oldAttr);
 		}
 	},
-	computed: {
-		// 如果按钮需要被禁用，则返回true，否则返回false
-		isBtnDisabled() {
-			if (this.catPid.length !== 3) return true;
-			else return false;
-		},
-		// 当前选中的三级分类的id
-		catId() {
-			if (this.catPid.length === 3) return this.catPid[this.catPid.length - 1];
-			return null;
-		}
+	created() {
+		// 获取所有的商品分类列表
+		this.getThreeCategoryList();
 	}
 };
 </script>

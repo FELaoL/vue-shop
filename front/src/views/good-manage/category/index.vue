@@ -15,6 +15,7 @@
 			</el-row>
 			<!-- 表格 -->
 			<tree-table
+				class="tree-table"
 				:data="categoryList"
 				:columns="columns"
 				:selection-type="false"
@@ -23,18 +24,27 @@
 				index-text="#"
 				border
 				:show-row-hover="false"
-				class="tree-table"
 			>
 				<!-- 是否有效 -->
 				<template slot="catDeleted" slot-scope="scope">
-					<i class="el-icon-success" v-if="scope.row.cat_deleted === false" style="color: lightgreen"></i>
-					<i class="el-icon-error" v-else style="color: red"></i>
+					<template v-if="scope.row.cat_deleted === false">
+						<i class="el-icon-success" style="color: lightgreen"></i>
+					</template>
+					<template v-else>
+						<i class="el-icon-error" style="color: red"></i>
+					</template>
 				</template>
 				<!-- 排序 -->
 				<template slot="catLevel" slot-scope="scope">
-					<el-tag v-if="scope.row.cat_level === 0" size="mini">一级</el-tag>
-					<el-tag type="success" v-else-if="scope.row.cat_level === 1" size="mini">二级</el-tag>
-					<el-tag type="warning" v-else size="mini">三级</el-tag>
+					<template v-if="scope.row.cat_level === 0">
+						<el-tag size="mini">一级</el-tag>
+					</template>
+					<template v-else-if="scope.row.cat_level === 1">
+						<el-tag type="success" size="mini">二级</el-tag>
+					</template>
+					<template v-else>
+						<el-tag type="warning" size="mini">三级</el-tag>
+					</template>
 				</template>
 				<!-- 操作 -->
 				<template slot="action" slot-scope="scope">
@@ -48,17 +58,19 @@
 			</tree-table>
 			<!-- 分页区域 -->
 			<el-pagination
+				:current-page="queryParams.pagenum"
+				:page-size="queryParams.pagesize"
+				:total="total"
+				:page-sizes="[3, 5, 10, 15]"
+				layout="total, sizes, prev, pager, next, jumper"
 				@size-change="handleSizeChange"
 				@current-change="handleCurrentChange"
-				:current-page="queryParams.pagenum"
-				:page-sizes="[3, 5, 10, 15]"
-				:page-size="queryParams.pagesize"
-				layout="total, sizes, prev, pager, next, jumper"
-				:total="total"
 			>
 			</el-pagination>
 		</el-card>
-		<category-dialog v-if="categoryVisible" ref="categoryRef" @refresh="getThreeCategoryList"></category-dialog>
+		<template v-if="categoryVisible">
+			<category-dialog ref="categoryRef" @refresh="getThreeCategoryList"></category-dialog>
+		</template>
 	</div>
 </template>
 

@@ -15,47 +15,44 @@
 				</el-col>
 			</el-row>
 			<!-- 角色列表区域 -->
-			<el-table border stripe :data="roleList">
+			<el-table :data="roleList" border stripe>
 				<!-- 展开列 -->
 				<el-table-column type="expand">
 					<template slot-scope="scope">
-						<el-row
-							:class="['bdbottom', index1 === 0 ? 'bdtop' : '', 'vcenter']"
-							v-for="(item1, index1) in scope.row.children"
-							:key="item1.id"
-						>
-							<!-- 渲染一级权限 -->
-							<el-col :span="5">
-								<el-tag closable @close="removeRight(scope.row, item1.id)">{{ item1.authName }}</el-tag>
-								<i class="el-icon-caret-right"></i>
-							</el-col>
-							<!-- 渲染二级和三级权限 -->
-							<el-col :span="19">
-								<!-- 通过for循环，嵌套渲染二级权限 -->
-								<el-row
-									v-for="(item2, index2) in item1.children"
-									:key="item2.id"
-									:class="[index2 === 0 ? '' : 'bdtop', 'vcenter']"
-								>
-									<el-col :span="6">
-										<el-tag type="success" closable @close="removeRight(scope.row, item2.id)">{{
-											item2.authName
-										}}</el-tag>
-										<i class="el-icon-caret-right"></i>
-									</el-col>
-									<el-col :span="18">
-										<el-tag
-											type="warning"
-											v-for="item3 in item2.children"
-											:key="item3.id"
-											closable
-											@close="removeRight(scope.row, item3.id)"
-											>{{ item3.authName }}</el-tag
-										>
-									</el-col>
-								</el-row>
-							</el-col>
-						</el-row>
+						<template v-for="(item1, index1) in scope.row.children">
+							<el-row :class="['bdbottom', index1 === 0 ? 'bdtop' : '', 'vcenter']" :key="item1.id">
+								<!-- 渲染一级权限 -->
+								<el-col :span="5">
+									<el-tag closable @close="removeRight(scope.row, item1.id)">{{ item1.authName }}</el-tag>
+									<i class="el-icon-caret-right"></i>
+								</el-col>
+								<!-- 渲染二级和三级权限 -->
+								<el-col :span="19">
+									<!-- 通过for循环，嵌套渲染二级权限 -->
+									<template v-for="(item2, index2) in item1.children">
+										<el-row :class="[index2 === 0 ? '' : 'bdtop', 'vcenter']" :key="item2.id">
+											<el-col :span="6">
+												<el-tag type="success" closable @close="removeRight(scope.row, item2.id)">{{
+													item2.authName
+												}}</el-tag>
+												<i class="el-icon-caret-right"></i>
+											</el-col>
+											<el-col :span="18">
+												<template v-for="item3 in item2.children">
+													<el-tag
+														:key="item3.id"
+														type="warning"
+														closable
+														@close="removeRight(scope.row, item3.id)"
+														>{{ item3.authName }}</el-tag
+													>
+												</template>
+											</el-col>
+										</el-row>
+									</template>
+								</el-col>
+							</el-row>
+						</template>
 					</template>
 				</el-table-column>
 				<!-- 索引列 -->
@@ -72,8 +69,12 @@
 					</template>
 				</el-table-column>
 			</el-table>
-			<role-dialog ref="roleRef" v-if="roleVisible" @refresh="getRoleList"></role-dialog>
-			<power-dialog ref="powerRef" v-if="powerVisible" @refresh="getRoleList"></power-dialog>
+			<template v-if="roleVisible">
+				<role-dialog ref="roleRef" @refresh="getRoleList"></role-dialog>
+			</template>
+			<template v-if="powerVisible">
+				<power-dialog ref="powerRef" @refresh="getRoleList"></power-dialog>
+			</template>
 		</el-card>
 	</div>
 </template>
@@ -93,9 +94,6 @@ export default {
 			roleVisible: false,
 			powerVisible: false
 		};
-	},
-	created() {
-		this.getRoleList();
 	},
 	methods: {
 		// 获取所有角色列表
@@ -158,6 +156,9 @@ export default {
 				this.$refs.powerRef.init(role);
 			});
 		}
+	},
+	created() {
+		this.getRoleList();
 	}
 };
 </script>

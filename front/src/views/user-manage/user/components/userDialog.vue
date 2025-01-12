@@ -1,13 +1,15 @@
 <template>
 	<el-dialog :title="userDialogTitle" :visible.sync="userDialogVisible" width="50%" @close="handleUserDialogClose">
 		<!--内容主体区域 -->
-		<el-form :model="userForm" :rules="userFormRules" ref="userFormRef" label-width="70px">
-			<el-form-item label="用户名" :prop="!userForm.id ? 'username' : ''">
+		<el-form ref="userFormRef" :model="userForm" :rules="userFormRules" label-width="70px">
+			<el-form-item :prop="!userForm.id ? 'username' : ''" label="用户名">
 				<el-input v-model="userForm.username" :disabled="userForm.id"></el-input>
 			</el-form-item>
-			<el-form-item label="密码" prop="password" v-if="!userForm.id">
-				<el-input v-model="userForm.password"></el-input>
-			</el-form-item>
+			<template v-if="!userForm.id">
+				<el-form-item label="密码" prop="password">
+					<el-input v-model="userForm.password"></el-input>
+				</el-form-item>
+			</template>
 			<el-form-item label="邮箱" prop="email">
 				<el-input v-model="userForm.email"></el-input>
 			</el-form-item>
@@ -16,10 +18,12 @@
 			</el-form-item>
 		</el-form>
 		<!-- 底部区域 -->
-		<span slot="footer" class="dialog-footer">
-			<el-button @click="userDialogVisible = false">取 消</el-button>
-			<el-button type="primary" @click="addOrUpdateUser">确 定</el-button>
-		</span>
+		<template slot="footer">
+			<span class="dialog-footer">
+				<el-button @click="userDialogVisible = false">取 消</el-button>
+				<el-button type="primary" @click="addOrUpdateUser">确 定</el-button>
+			</span>
+		</template>
 	</el-dialog>
 </template>
 

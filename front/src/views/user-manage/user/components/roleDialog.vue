@@ -7,14 +7,18 @@
 			<p>
 				分配新角色：
 				<el-select v-model="roleId" placeholder="请选择">
-					<el-option v-for="item in roleList" :key="item.id" :label="item.roleName" :value="item.id"> </el-option>
+					<template v-for="item in roleList">
+						<el-option :key="item.id" :label="item.roleName" :value="item.id"> </el-option>
+					</template>
 				</el-select>
 			</p>
 		</div>
-		<span slot="footer" class="dialog-footer">
-			<el-button @click="allotRoleDialogVisible = false">取 消</el-button>
-			<el-button type="primary" @click="allotRole">确 定</el-button>
-		</span>
+		<template slot="footer">
+			<span class="dialog-footer">
+				<el-button @click="allotRoleDialogVisible = false">取 消</el-button>
+				<el-button type="primary" @click="allotRole">确 定</el-button>
+			</span>
+		</template>
 	</el-dialog>
 </template>
 

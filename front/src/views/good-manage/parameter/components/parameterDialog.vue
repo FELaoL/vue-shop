@@ -3,30 +3,25 @@
 	<el-dialog
 		:title="(!attrForm.attr_id ? '添加' : '修改') + attrDialogTitle"
 		:visible.sync="attrDialogVisible"
-		@close="handleAttrDialogClosed"
 		width="50%"
+		@close="handleAttrDialogClosed"
 	>
-		<el-form :model="attrForm" :rules="attrFormRules" ref="attrFormRef" label-width="100px">
+		<el-form ref="attrFormRef" :model="attrForm" :rules="attrFormRules" label-width="100px">
 			<el-form-item :label="attrDialogTitle" prop="attr_name">
 				<el-input v-model="attrForm.attr_name"></el-input>
 			</el-form-item>
 		</el-form>
-		<span slot="footer" class="dialog-footer">
-			<el-button @click="attrDialogVisible = false">取 消</el-button>
-			<el-button type="primary" @click="addOrUpdateAttr">确 定</el-button>
-		</span>
+		<template slot="footer">
+			<span class="dialog-footer">
+				<el-button @click="attrDialogVisible = false">取 消</el-button>
+				<el-button type="primary" @click="addOrUpdateAttr">确 定</el-button>
+			</span>
+		</template>
 	</el-dialog>
 </template>
 
 <script>
 export default {
-	computed: {
-		// 动态计算标题的文本
-		attrDialogTitle() {
-			if (this.activeName === "many") return "动态参数";
-			else return "静态属性";
-		}
-	},
 	data() {
 		return {
 			// 操作参数的变量
@@ -44,6 +39,13 @@ export default {
 			catId: null,
 			isAddAttr: true
 		};
+	},
+	computed: {
+		// 动态计算标题的文本
+		attrDialogTitle() {
+			if (this.activeName === "many") return "动态参数";
+			else return "静态属性";
+		}
 	},
 	methods: {
 		init(activeName, catId, data) {

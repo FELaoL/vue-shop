@@ -11,21 +11,23 @@
 		<el-card>
 			<el-row :gutter="20">
 				<el-col :span="8">
-					<el-input placeholder="请输入内容" v-model="queryParams.query" clearable @clear="getOrderList">
-						<el-button slot="append" icon="el-icon-search" @click="getOrderList"></el-button>
+					<el-input v-model="queryParams.query" placeholder="请输入内容" clearable @clear="getOrderList">
+						<template slot="append">
+							<el-button icon="el-icon-search" @click="getOrderList"></el-button>
+						</template>
 					</el-input>
 				</el-col>
 			</el-row>
 
 			<!-- 订单列表数据 -->
-			<el-table border stripe :data="orderList">
+			<el-table :data="orderList" border stripe>
 				<el-table-column type="index"></el-table-column>
 				<el-table-column prop="order_number" label="订单编号"></el-table-column>
 				<el-table-column prop="order_price" label="订单价格"></el-table-column>
 				<el-table-column prop="pay_status" label="是否付款">
 					<template slot-scope="scope">
-						<el-tag type="success" v-if="scope.row.pay_status === '1'">已付款</el-tag>
-						<el-tag type="danger" v-else>未付款</el-tag>
+						<template v-if="scope.row.pay_status === '1'"><el-tag type="success">已付款</el-tag></template>
+						<template v-else><el-tag type="danger">未付款</el-tag></template>
 					</template>
 				</el-table-column>
 				<el-table-column prop="is_send" label="是否发货"></el-table-column>
@@ -55,19 +57,22 @@
 			<!-- 分页区域 -->
 			<el-pagination
 				background
+				:current-page="queryParams.pagenum"
+				:page-size="queryParams.pagesize"
+				:total="total"
+				:page-sizes="[5, 10, 15, 20, 30]"
+				layout="total, sizes, prev, pager, next, jumper"
 				@size-change="handleSizeChange"
 				@current-change="handleCurrentChange"
-				:current-page="queryParams.pagenum"
-				:page-sizes="[5, 10, 15, 20, 30]"
-				:page-size="queryParams.pagesize"
-				layout="total, sizes, prev, pager, next, jumper"
-				:total="total"
 			>
 			</el-pagination>
 		</el-card>
-
-		<address-dialog ref="addressRef" v-if="addressVisible" @refresh="getOrderList"></address-dialog>
-		<logistics-dialog ref="logisticsRef" v-if="logisticsVisible" @refresh="getOrderList"></logistics-dialog>
+		<template v-if="addressVisible">
+			<address-dialog ref="addressRef" @refresh="getOrderList"></address-dialog>
+		</template>
+		<template v-if="logisticsVisible">
+			<logistics-dialog ref="logisticsRef" @refresh="getOrderList"></logistics-dialog>
+		</template>
 	</div>
 </template>
 

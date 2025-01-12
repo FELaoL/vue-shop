@@ -405,45 +405,7 @@
 		if (tables.length) {
 			var selector = this.selector;
 			//追加默认的表格样式
-			utils.cssRule(
-				"table",
-				selector +
-					" table.noBorderTable td," +
-					selector +
-					" table.noBorderTable th," +
-					selector +
-					" table.noBorderTable caption{border:1px dashed #ddd !important}" +
-					selector +
-					" table.sortEnabled tr.firstRow th," +
-					selector +
-					" table.sortEnabled tr.firstRow td{padding-right:20px; background-repeat: no-repeat;" +
-					"background-position: center right; background-image:url(" +
-					this.rootPath +
-					"themes/default/images/sortable.png);}" +
-					selector +
-					" table.sortEnabled tr.firstRow th:hover," +
-					selector +
-					" table.sortEnabled tr.firstRow td:hover{background-color: #EEE;}" +
-					selector +
-					" table{margin-bottom:10px;border-collapse:collapse;display:table;}" +
-					selector +
-					" td," +
-					selector +
-					" th{padding: 5px 10px;border: 1px solid #DDD;}" +
-					selector +
-					" caption{border:1px dashed #DDD;border-bottom:0;padding:3px;text-align:center;}" +
-					selector +
-					" th{border-top:1px solid #BBB;background:#F7F7F7;}" +
-					selector +
-					" table tr.firstRow th{border-top:2px solid #BBB;background:#F7F7F7;}" +
-					selector +
-					" tr.ue-table-interlace-color-single td{ background: #fcfcfc; }" +
-					selector +
-					" tr.ue-table-interlace-color-double td{ background: #f7faff; }" +
-					selector +
-					" td p{margin:0;padding:0;width:auto;height:auto;}",
-				document
-			);
+			utils.cssRule("table", selector + " table.noBorderTable td," + selector + " table.noBorderTable th," + selector + " table.noBorderTable caption{border:1px dashed #ddd !important}" + selector + " table.sortEnabled tr.firstRow th," + selector + " table.sortEnabled tr.firstRow td{padding-right:20px; background-repeat: no-repeat;" + "background-position: center right; background-image:url(" + this.rootPath + "themes/default/images/sortable.png);}" + selector + " table.sortEnabled tr.firstRow th:hover," + selector + " table.sortEnabled tr.firstRow td:hover{background-color: #EEE;}" + selector + " table{margin-bottom:10px;border-collapse:collapse;display:table;}" + selector + " td," + selector + " th{padding: 5px 10px;border: 1px solid #DDD;}" + selector + " caption{border:1px dashed #DDD;border-bottom:0;padding:3px;text-align:center;}" + selector + " th{border-top:1px solid #BBB;background:#F7F7F7;}" + selector + " table tr.firstRow th{border-top:2px solid #BBB;background:#F7F7F7;}" + selector + " tr.ue-table-interlace-color-single td{ background: #fcfcfc; }" + selector + " tr.ue-table-interlace-color-double td{ background: #f7faff; }" + selector + " td p{margin:0;padding:0;width:auto;height:auto;}", document);
 			//填充空的单元格
 
 			utils.each("td th caption".split(" "), function (tag) {

@@ -1,18 +1,20 @@
 <template>
 	<!-- 角色操作的界面 -->
 	<el-dialog :title="roleDialogTitle" :visible.sync="roleDialogVisible" width="50%" @close="handleRoleDialogClose">
-		<el-form :model="roleForm" :rules="roleFormRules" ref="roleFormRef" label-width="80px">
-			<el-form-item label="角色名称" :prop="!roleForm.roleId ? 'roleName' : ''">
+		<el-form ref="roleFormRef" :model="roleForm" :rules="roleFormRules" label-width="80px">
+			<el-form-item :prop="!roleForm.roleId ? 'roleName' : ''" label="角色名称">
 				<el-input v-model="roleForm.roleName" :disabled="roleForm.roleId"></el-input>
 			</el-form-item>
 			<el-form-item label="角色描述" prop="roleDesc">
 				<el-input v-model="roleForm.roleDesc"></el-input>
 			</el-form-item>
 		</el-form>
-		<span slot="footer" class="dialog-footer">
-			<el-button @click="roleDialogVisible = false">取 消</el-button>
-			<el-button type="primary" @click="addOrUpdateRole">确 定</el-button>
-		</span>
+		<template slot="footer">
+			<span class="dialog-footer">
+				<el-button @click="roleDialogVisible = false">取 消</el-button>
+				<el-button type="primary" @click="addOrUpdateRole">确 定</el-button>
+			</span>
+		</template>
 	</el-dialog>
 </template>
 
